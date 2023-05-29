@@ -1,0 +1,25 @@
+[package]
+name = "bidding-platform"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+library = []
+tests = ["library", "cw-multi-test"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+
+[dependencies]
+cosmwasm-std = "1.2.5"
+serde = "1.0.63"
+cw-storage-plus = "1.0.1"
+thiserror = "1.0.40"
+schemars = "0.8.12"
+cosmwasm-schema = "1.2.5"
+cw-multi-test = {version="0.16.4", optional=true}
+cw2 = "1.0.1"
+
+[dev-dependencies]
+cw-multi-test = "0.16.4"
