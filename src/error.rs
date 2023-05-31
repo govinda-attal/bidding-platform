@@ -6,6 +6,9 @@ pub enum ContractError {
     #[error("{0}")]
     Std(#[from] StdError),
 
+    #[error("commission part can be between [0-25]%")]
+    InvalidCommissionPart,
+
     #[error("Unauthorized - only {owner} can call it")]
     Unauthorized { owner: String },
 

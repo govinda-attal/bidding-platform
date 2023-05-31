@@ -1,7 +1,8 @@
-use cosmwasm_std::{DepsMut, MessageInfo, Response, StdResult, Uint128};
+use cosmwasm_std::{ensure, Decimal, DepsMut, MessageInfo, Response, Uint128};
 use cw2::set_contract_version;
 
 use crate::{
+    error::ContractError,
     msg::InstantiateMsg,
     state::{CommissionParams, BID_DENOM, BID_OPEN, COMMISSION_PARAMS, HIGHEST_BID, ITEM, OWNER},
 };
@@ -9,8 +10,16 @@ use crate::{
 const CONTRACT_NAME: &str = env!("CARGO_PKG_NAME");
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
-pub fn instantiate(deps: DepsMut, info: MessageInfo, msg: InstantiateMsg) -> StdResult<Response> {
+pub fn instantiate(
+    deps: DepsMut,
+    info: MessageInfo,
+    msg: InstantiateMsg,
+) -> Result<Response, ContractError> {
     set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+    ensure!(
+        msg.commission_part >= Decimal::percent(0) && msg.commission_part <= Decimal::percent(25),
+        ContractError::InvalidCommissionPart
+    );
 
     ITEM.save(deps.storage, &msg.item)?;
     BID_DENOM.save(deps.storage, &msg.bid_denom)?;

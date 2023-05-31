@@ -4,7 +4,7 @@ This is solution to below problem statement. It is an attempt for CosmWasm smart
 ## Tests
 Tests are implemented using cw-multi-test crate. It implements following test cases:
 * [Example flow without commision](#without-commission)
-* [Example flow with commission](#with-commission)
+* [Example flow with commission](#with-commission) Commission can be either between [0,25]% or round number of atoms (0 or more).
 * Owner must not be able bid
 * Any bidder (or even owner - which is NA) must not be able to retract on an open bid
 

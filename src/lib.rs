@@ -20,7 +20,7 @@ pub fn instantiate(
     _env: Env,
     info: MessageInfo,
     msg: InstantiateMsg,
-) -> StdResult<Response> {
+) -> Result<Response, ContractError> {
     contract::instantiate(deps, info, msg)
 }
 
